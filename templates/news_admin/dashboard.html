@@ -1,0 +1,107 @@
+
+{% extends 'news/base.html'%}
+{% load static %}
+{% block navbar%}
+
+<style>
+    .card-body a{
+    text-decoration:none;
+    color:#fff;
+    }
+    .card-body a:hover{
+    color:orange;
+    }
+</style>
+<div class="container"><hr>
+    <h2>Admin Dashboard</h2> <a href="{% url 'news_admin:addnews' %}" class="btn btn-outline-info col-lg-2 align-items-end"> + &nbsp; Add news</a>
+    <hr>
+  
+    <div class="row">
+        <div class="col">
+    <div class="card text-white bg-primary mb-3" style="max-width: 35rem;">
+        <div class="card-header text-center">Total Subscribers</div>
+        <div class="card-body">
+            <a href=""><h1 class="card-title text-center">{{subscribers}}</h1></a>
+        </div>
+    </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total Reporters</div>
+                <div class="card-body">
+                    <a href=""><h1 class="card-title text-center">{{reporters}}</h1></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total Admins</div>
+                <div class="card-body">
+                    <a href="/admin-dashboard/show-user"><h1 class="card-title text-center">{{admins}}</h1></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card text-white bg-dark mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total National News</div>
+                <div class="card-body">
+                    <a href="/admin-dashboard/show-user"><h1 class="card-title text-center">{{nationalnews}}</h1></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-info mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total International News</div>
+                <div class="card-body">
+                    <a href=""><h1 class="card-title text-center">{{internationalnews}}</h1></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-danger mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">All Total News</div>
+                <div class="card-body">
+                    <a href=""><h1 class="card-title text-center">{{news}}</h1></a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+   <hr>
+   <h3> Recent news:</h3>
+    <hr>
+
+    <div>
+        <table class="table table-light">
+            <thead>
+              <tr>
+                <th scope="col">News ID:</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Reporter</th>
+                <th scope="col">Date</th>
+                <th scope="col">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in recentnews %}
+              <tr>
+                <th scope="row">{{i.id}}</th>
+                <td>{{i.heading|truncatechars:18}}</td>
+                <td>{{i.reporter.name}}</td>
+                <td>{{i.date}}</td>
+                <td>{{i.category.category}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% include 'news/footer.html'%}
+
+
+  
+    
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'news/base.html'%}
+{% block navbar%}
+{% include 'news/simnavbar.html'%}
+
+
+  </head>
+  <body>
+    <div class="container">
+        {% if news|length == 0 %}
+        <h1>No result found for : <b class="text-primary">{{query}}</b></h1>
+        {% for message in messages %}
+        <div class="alert alert-warning">
+            <a class="close" href="#" data-dismiss="alert">X</a>
+            <strong>Message: </strong>{{ message }}
+            
+    
+        </div>
+        <h3>No results found for : <b class="text-primary">{{query}}</b></h3>
+        <h4>Suggestions:</h4>
+        <ul>
+            <li>Try another keyword.</li>
+           
+        </ul>
+        {% endfor %}
+        {% else %}
+        <h3>Search results for :<b class="text-primary">{{query}}</b></h3>
+        <div class="border rounded p-4">
+            <div class="newsitem row">
+              {% for i in news %}
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="card" style="width: 13rem; height:18rem">
+                    <img
+                      src="{{i.imageUrl}}"
+                      class="card-img-top" alt="pic" style="height: 8em;" >
+                    <div class="card-body">
+                      <h5 class="card-title">{{i.heading|truncatechars:30}}</h5>
+                      <h6 class="card-subtitle mb-2 text-muted text-left">{{i.date}}</h6><br>
+      
+                      <a href="{% url 'news:newsdetail' id=i.id%}" class="btn btn-outline-primary btn-sm col-lg-12 col-12 col-md-12">Read..</a>
+                    </div>
+                  </div>
+    
+                </div>
+    
+                {% endfor %}
+                
+         
+              
+              
+            </div>
+        </div>
+{% endif%}
+
+  {% endblock %}

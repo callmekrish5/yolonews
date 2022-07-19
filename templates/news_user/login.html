@@ -1,0 +1,54 @@
+{% extends 'news/base.html' %}
+{% load bootstrap %}
+
+
+{% block navbar%}
+<style>
+.help-block{
+color:red;
+font-weight:bold;
+}
+
+
+</style>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-8 offset-md-2">
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <h6 class="success_message py-3 px-1 my-2 text-center">{{message}}</h6>
+            {% endif %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+            <p class="alert alert-danger py-3 px-1 my-2 text-center">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            <h1 class="text-center">User Login</h1>
+            <div class="col-lg-6 mx-auto">
+                <div class="border p-5">
+                <form class="form" action="" method="POST">
+                    {% csrf_token %}
+                   <table class="table table-striped">
+                       {{form.as_table}}
+
+                   </table>
+                    <button type="submit" class="btn btn-primary float-right ">Login</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder = 'Enter username';
+    form_fields[2].placeholder = 'Enter password';
+
+    for (var field in form_fields){
+    field.className += ' form-control my-2'
+    }
+
+</script>
+
+{% endblock %}

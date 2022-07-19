@@ -1,0 +1,63 @@
+
+{% extends 'news/base.html'%}
+{% block navbar%}
+
+    <title>National News</title>
+    <style>
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        a:hover{
+            color: blue;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light navbar-expand-lg sticky-top">
+      <div class="container ">
+        <a class="navbar-brand" href="#">YoloTechNews</a>
+
+        <form class="d-flex col-lg-4 ms-auto" method="GET" >
+
+            {{ news_filter.form }}
+            <button type="submit" class="btn btn-primary btn-sm ">Search</button>
+        </form>
+
+  
+        </form>
+      </div>
+    </nav><br>
+    <div class="container">
+      
+      <br />
+      <h2>National News:</h2>
+      <hr />
+      <div class="border rounded p-4">
+        <div class="newsitem row">
+          {% for i in news %}
+            <div class="col-lg-3 col-md-4 col-6">
+              <div class="card" style="width: 13rem; height:18rem">
+                <img
+                  src="{{i.imageUrl}}"
+                  class="card-img-top" alt="pic" style="height: 8em;" >
+                <div class="card-body">
+                  <h5 class="card-title">{{i.heading|truncatechars:30}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted text-left">{{i.date}}</h6><br>
+  
+                  <a href="{% url 'news:newsdetail' id=i.id%}" class="btn btn-outline-primary btn-sm col-lg-12 col-12 col-md-12">Read..</a>
+                </div>
+              </div>
+
+            </div>
+
+            {% endfor %}
+            
+     
+          
+          
+        </div>
+      </div>
+    </div>
+
+  {% endblock %}

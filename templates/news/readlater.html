@@ -1,0 +1,55 @@
+
+{% extends 'news/base.html'%}
+{% block navbar%}
+
+    <title>National News</title>
+    <style>
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        a:hover{
+            color: blue;
+        }
+    </style>
+  </head>
+  <body>
+    
+    <div class="container">
+      
+      <br />
+      <h2>Read Later</h2>
+      <hr />
+      <div class="border rounded p-4">
+        <div class="newsitem row">
+          {% for i in all %}
+            <div class="col-lg-3 col-md-4 col-6">
+              <div class="card" style="width: 13rem; height:18rem">
+                <img
+                  src="{{i.news.imageUrl}}"
+                  class="card-img-top" alt="pic" style="height: 8em;" >
+                <div class="card-body">
+                  <h5 class="card-title">{{i.news.heading|truncatechars:30}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted text-left">{{i.news.date}}</h6><br>
+                  
+                  <a href="{% url 'news:newsdetail' id=i.news.id%}" class=" btn btn-group btn-outline-primary btn-sm ">Read..</a>
+                  <a href="{% url 'news:removeReadlater' id=i.id%}" onclick="return confirm('Remove from read later?')" class=" btn btn-group btn-danger btn-sm ">Remove</a>
+  
+                  
+                </div>
+              </div>
+
+            </div>
+            {%empty%}
+            <h4 class="text-center"> No articles.</h4>
+
+            {% endfor %}
+            
+     
+          
+          
+        </div>
+      </div>
+    </div>
+
+  {% endblock %}

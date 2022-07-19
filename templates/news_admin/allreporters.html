@@ -1,0 +1,61 @@
+
+{% extends 'news/base.html'%}
+{% load static %}
+{% block navbar%}
+
+<div class="container">
+    {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <h6 class="success_message py-3 px-1 my-2 text-center">{{message}}</h6>
+            {% endif %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+            <p class="alert alert-danger py-3 px-1 my-2 text-center">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+    <h3>All Reporters</h3>
+    <div>
+        <a href="{% url 'news_admin:addReporter' %}" class="btn btn-primary btn">Add reporter</a>
+    </div>
+    <hr>
+    <div class="col-lg-8 mx-auto">
+        <div class="border p-4">
+            <table class="table">
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Joined Date</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    {% for i in reps %}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.phone}}</td>
+                        <td>{{i.joined_date}}</td>
+                        <td>
+                            <a href="{% url 'news_admin:updateReporter' i.id %}" class="btn btn-primary btn-sm">Update </a>
+                            <a href="{% url 'news_admin:deleteReporter' i.id %}" onclick="return confirm('Delete Reporter?')" class="btn btn-danger btn-sm">Remove</a>
+
+                        </td>
+                    </tr>
+                    {% empty%}
+                    <p class="h4">No subscribers at all.</p>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+<br><br>
+{% include 'news/footer.html'%}
+
+
+  
+    
+{% endblock %}

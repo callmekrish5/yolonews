@@ -1,0 +1,133 @@
+
+{% extends 'news/base.html'%}
+{% load static %}
+{% block navbar%}
+{% include 'news/navbar.html' %}
+<link rel="stylesheet" href="{% static 'news/owlcarousel/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'news/owlcarousel/owl.carousel.min.css' %}">
+
+
+    <main class="container">
+   
+      <div class="breaking text-center">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
+          
+          <div class="carousel-inner">
+            {% for i in breaking_news%}
+            <div class="carousel-item active" data-bs-interval="10000">
+              <a href="">
+                <img src="{{i.imageUrl}} "
+                class="d-block w-100" alt="photo"  style="height: 60vh">
+              </a>
+              <div class="carousel-caption d-none d-md-block text-white">
+                <h5>{{i.heading}}</h5>
+                <p>{{i.details|truncatechars:100}}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+            
+            
+            
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+            
+            
+            
+        
+        <hr>
+      </div><br>
+      <div class="nationalnews">
+        <h3 class="text-left">National News &nbsp; <a class="btn btn-primary btn-sm" href="{% url 'news:national'%}">See all..</a></h3>
+        <hr>
+
+        <div class="owl-carousel owl-theme">
+          {% for i in national_news%}
+          <div class="item">
+            <div class="card" style="width: 13rem; height:18rem">
+              <img
+                src="{{i.imageUrl}}"
+                class="card-img-top" alt="pic" style="height: 8em;" >
+              <div class="card-body">
+                <h5 class="card-title">{{i.heading|truncatechars:30}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted text-left">{{i.date}}</h6><br>
+
+                <a href="{% url 'news:newsdetail' id=i.id%}" class="btn btn-outline-primary btn-sm col-lg-12">Read more</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <hr>
+      </div><br><br><br>
+      <div class="intnews">
+        <h3 class="text-left">International News &nbsp; <a class="btn btn-primary btn-sm" href="{% url 'news:international'%}">See all..</a></h3>
+
+        <hr>
+        <div class="owl-carousel owl-theme">
+          {% for i in international_news%}
+          <div class="item">
+            <div class="card" style="width: 13rem;height:18rem">
+              <img
+                src="{{i.imageUrl}}"
+                class="card-img-top" alt="pic" style="height: 8em;" >
+              <div class="card-body">
+                <h5 class="card-title">{{i.heading|truncatechars:30}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted text-left">{{i.date}}</h6><br>
+
+                <a href="{% url 'news:newsdetail' id=i.id%}" class="btn btn-outline-primary btn-sm col-lg-12">Read more</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+
+        </div>
+      </div><hr>
+
+    </main><br><br><br>
+{% include 'news/footer.html'%}
+
+
+  
+    <script src="{% static 'news/owlcarousel/jquery.min.js'%}"></script>
+    <script src="{% static 'news/owlcarousel/owl.carousel.min.js'%}"></script>
+    <script>
+      $('.owl-carousel').owlCarousel({
+        loop: false,
+        margin: 10,
+        nav: true,
+        responsive: {
+          0: {
+            items: 2
+          },
+          600: {
+            items: 3
+          },
+          1000: {
+            items: 5
+          }
+        }
+      })
+    </script>
+{% endblock %}

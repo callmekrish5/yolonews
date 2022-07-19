@@ -1,0 +1,6 @@
+To run:
+python .\manage.py runserver
+
+important:
+python manage.py makemigrations
+python manage.py migrate

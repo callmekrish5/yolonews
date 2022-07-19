@@ -1,0 +1,57 @@
+
+{% extends 'news/base.html'%}
+{% load static %}
+{% block navbar%}
+
+<div class="container">
+    {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <h6 class="alert alert-success py-3 px-1 my-2 text-center">{{message}}</h6>
+            {% endif %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+            <p class="alert alert-danger py-3 px-1 my-2 text-center">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+    <h3  class="text-center" >All Admins</h3>
+  
+    <hr>
+    <div class="col-lg-8 mx-auto">
+        <div class="border p-4">
+            <table class="table">
+                <thead>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Joined Date</th>
+                    <th>Last Active</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    {% for i in admins %}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.username}}</td>
+                        <td>{{i.date_joined}}</td>
+                        <td>{{i.last_login}}</td>
+                        <td>
+                            <a href="{% url 'news_admin:deleteAdmin' i.id %}" onclick="return confirm('Remove Admin?')" class="btn btn-danger btn-sm">Delete Admin</a>
+                        </td>
+                    </tr>
+                    {% empty%}
+                    <p class="h4">No subscribers at all.</p>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+<br><br>
+{% include 'news/footer.html'%}
+
+
+  
+    
+{% endblock %}
